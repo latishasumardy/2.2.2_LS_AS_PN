@@ -9,8 +9,8 @@ public class Profile {
     private String firstName;
     private String lastName;
     private Date dateOfBirth;
-    private String objectID;
-    private String email;
+    private String objectID; //step 18 implemented here
+    private String email; //step 19 implemented here
 
     public Profile() {
         firstName = "Alan";
@@ -41,7 +41,7 @@ public class Profile {
     public void setDateOfBirth(Date dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
-
+    //step 18 implemented in lines 45-51 below
     public String getObjectID() {
         return objectID;
     }
@@ -49,7 +49,7 @@ public class Profile {
     public void setObjectID(String objectID) {
         this.objectID = objectID;
     }
-
+    //step 19 implemented in lines 53-60 below
     public String getEmail() {
         return email;
     }

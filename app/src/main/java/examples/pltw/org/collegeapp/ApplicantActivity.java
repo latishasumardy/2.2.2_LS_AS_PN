@@ -27,7 +27,7 @@ public class ApplicantActivity extends AppCompatActivity
         final String BE_APP_ID = "5BFED427-F421-6BA1-FFA6-9F7AB9512B00";
         final String BE_ANDROID_API_KEY = "252254DA-79A1-C0F2-FF86-37D0F134CC00";
         private String MY_EMAIL_ADDRESS;
-        public String EMAIL_PREF = "EMAIL_PREF";
+        public static String EMAIL_PREF = "EMAIL_PREF";
 
 
     @Override
@@ -57,11 +57,28 @@ public class ApplicantActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        //step 22 implemented in lines 61-65 below
         SharedPreferences sharedPreferences =
                 this.getPreferences(Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString(EMAIL_PREF, MY_EMAIL_ADDRESS);
         editor.commit();
+        /* Step 13 implemented below
+        BackendlessUser user = new BackendlessUser();
+        user.setEmail( "lsmarty23@gmail.com" );
+        user.setPassword( "123456" );
+
+        Backendless.UserService.register(user, new AsyncCallback<BackendlessUser>(){
+            @Override
+            public void handleResponse(BackendlessUser backendlessUser){
+                Log.i( "User ", backendlessUser.getEmail() + " successfully registered" );
+            }
+            @Override
+            public void handleFault(BackendlessFault backendlessFault) {
+                Log.e( "Backendless registration error! ", backendlessFault.getMessage());
+            }
+        });
+         */
 
 
     }

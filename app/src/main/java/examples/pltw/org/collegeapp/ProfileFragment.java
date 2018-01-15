@@ -1,7 +1,9 @@
 package examples.pltw.org.collegeapp;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -16,8 +18,10 @@ import android.widget.TextView;
 import com.backendless.Backendless;
 import com.backendless.async.callback.AsyncCallback;
 import com.backendless.exceptions.BackendlessFault;
+import com.backendless.persistence.DataQueryBuilder;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by wdumas on 4/8/16.
@@ -98,9 +102,36 @@ public class ProfileFragment extends Fragment{
             }
         }
     }
+    //steps 14-15 implemented in lines 102-143 below
     @Override
     public void onPause() {
         super.onPause();
+        //step 23 in line 108-113
+        SharedPreferences sharedPreferences =
+                getActivity().getPreferences(Context.MODE_PRIVATE);
+        String email = sharedPreferences.getString(ApplicantActivity.EMAIL_PREF, null);
+        if (mProfile.getEmail() == null) {
+            mProfile.setEmail(email);
+        }
+        //step 24 implemented in lines 115-131
+        String whereClause = "email = '" + email + "'";
+        DataQueryBuilder query = DataQueryBuilder.create();
+        query.setWhereClause(whereClause);
+        Backendless.Data.of(Profile.class).find(query, new AsyncCallback<List<Profile>>() {
+            @Override
+            public void handleResponse(List<Profile> profile) {
+                if (!profile.isEmpty()) {
+                    String profileId = profile.get(0).getObjectID();
+                    Log.d(TAG, "Object ID: " + profileId);
+                    mProfile.setObjectID(profileId);
+                }
+            }
+            @Override
+            public void handleFault(BackendlessFault fault) {
+                Log.e(TAG, "Failed to find profile: " + fault.getMessage());
+            }
+        });
+
         Backendless.Data.of(Profile.class).save(mProfile, new AsyncCallback<Profile>() {
             @Override
             public void handleResponse(Profile response) {
@@ -108,6 +139,38 @@ public class ProfileFragment extends Fragment{
             }
             public void handleFault(BackendlessFault fault) {
                 Log.i(TAG, "Failed to save profile!" + fault.getMessage());
+            }
+        });
+
+    }
+    //step 26 done below
+    @Override
+    public void onStart() {
+
+        super.onStart();
+        SharedPreferences sharedPreferences =
+                getActivity().getPreferences(Context.MODE_PRIVATE);
+        String email = sharedPreferences.getString(ApplicantActivity.EMAIL_PREF, null);
+        String whereClause = "email = '" + email + "'";
+        DataQueryBuilder query = DataQueryBuilder.create();
+        query.setWhereClause(whereClause);
+        Backendless.Data.of(Profile.class).find(query, new AsyncCallback<List<Profile>>() {
+            @Override
+            public void handleResponse(List<Profile> profile) {
+                if (!profile.isEmpty()) {
+                    mProfile = profile.get(0);
+                    String profileFirstName = profile.get(0).getFirstName();
+                    Log.d(TAG, "First Name: " + profileFirstName);
+                    mProfile.setFirstName(profileFirstName);
+                    String profileLastName = profile.get(0).getLastName();
+                    Log.d(TAG, "Last Name: " + profileLastName);
+                    mProfile.setLastName(profileLastName);
+
+                }
+            }
+            @Override
+            public void handleFault(BackendlessFault fault) {
+                Log.e(TAG, "Failed to find profile: " + fault.getMessage());
             }
         });
     }
