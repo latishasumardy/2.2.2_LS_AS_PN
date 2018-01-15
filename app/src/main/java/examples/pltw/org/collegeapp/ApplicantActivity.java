@@ -1,5 +1,7 @@
 package examples.pltw.org.collegeapp;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -12,7 +14,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-
+//step 9 implemented below
 import com.backendless.Backendless;
 import com.backendless.BackendlessUser;
 import com.backendless.async.callback.AsyncCallback;
@@ -21,11 +23,17 @@ import com.backendless.exceptions.BackendlessFault;
 public class ApplicantActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
         private static final String TAG = ApplicantActivity.class.getName();
+        //step 11 implemented in lines 27-28
         final String BE_APP_ID = "5BFED427-F421-6BA1-FFA6-9F7AB9512B00";
         final String BE_ANDROID_API_KEY = "252254DA-79A1-C0F2-FF86-37D0F134CC00";
+        private String MY_EMAIL_ADDRESS;
+        public String EMAIL_PREF = "EMAIL_PREF";
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //step 12 implemented below
         Backendless.initApp(this, BE_APP_ID,BE_ANDROID_API_KEY);
         setContentView(R.layout.activity_applicant);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -49,6 +57,11 @@ public class ApplicantActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        SharedPreferences sharedPreferences =
+                this.getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(EMAIL_PREF, MY_EMAIL_ADDRESS);
+        editor.commit();
 
 
     }
@@ -110,5 +123,6 @@ public class ApplicantActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
 
 }
