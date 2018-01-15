@@ -9,6 +9,8 @@ public class Profile {
     private String firstName;
     private String lastName;
     private Date dateOfBirth;
+    private String objectID;
+    private String email;
 
     public Profile() {
         firstName = "Alan";
@@ -38,5 +40,21 @@ public class Profile {
 
     public void setDateOfBirth(Date dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
+    }
+
+    public String getObjectID() {
+        return objectID;
+    }
+
+    public void setObjectID(String objectID) {
+        this.objectID = objectID;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

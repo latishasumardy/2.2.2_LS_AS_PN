@@ -13,6 +13,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.backendless.Backendless;
+import com.backendless.async.callback.AsyncCallback;
+import com.backendless.exceptions.BackendlessFault;
+
 import java.util.Date;
 
 /**
@@ -48,6 +52,7 @@ public class ProfileFragment extends Fragment{
         mEditLastName = (EditText) rootView.findViewById(R.id.profileLastNameEditText);
 
         mSubmitButton = (Button) rootView.findViewById(R.id.profileSubmitButton);
+
 
         mSubmitButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,4 +98,18 @@ public class ProfileFragment extends Fragment{
             }
         }
     }
+    @Override
+    public void onPause() {
+        super.onPause();
+        Backendless.Data.of(Profile.class).save(mProfile, new AsyncCallback<Profile>() {
+            @Override
+            public void handleResponse(Profile response) {
+                Log.i(TAG, "Saved profile to Backendless");
+            }
+            public void handleFault(BackendlessFault fault) {
+                Log.i(TAG, "Failed to save profile!" + fault.getMessage());
+            }
+        });
+    }
+
 }

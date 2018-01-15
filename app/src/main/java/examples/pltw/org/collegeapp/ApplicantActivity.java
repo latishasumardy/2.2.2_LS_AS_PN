@@ -48,20 +48,6 @@ public class ApplicantActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        BackendlessUser user = new BackendlessUser();
-        user.setEmail("lsmarty23@gmail.com");
-        user.setPassword("12345");
-
-        Backendless.UserService.register(user, new AsyncCallback<BackendlessUser>(){
-            @Override
-            public void handleResponse(BackendlessUser backendlessUser){
-                Log.i( "User ", backendlessUser.getEmail() + " successfully registered" );
-            }
-            @Override
-            public void handleFault(BackendlessFault backendlessFault) {
-                Log.e( "Backendless reg. error", backendlessFault.getMessage());
-            }
-        });
 
 
 
