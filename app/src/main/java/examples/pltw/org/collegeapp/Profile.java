@@ -5,12 +5,12 @@ import java.util.Date;
 /**
  * Created by wdumas on 4/11/16.
  */
-public class Profile {
+public class Profile extends ApplicantData{
     private String firstName;
     private String lastName;
     private Date dateOfBirth;
-    private String objectID; //step 18 implemented here
-    private String email; //step 19 implemented here
+    //private String objectID; //step 18 implemented here
+    //private String email; //step 19 implemented here
 
     public Profile() {
         firstName = "Alan";
@@ -41,7 +41,8 @@ public class Profile {
     public void setDateOfBirth(Date dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
-    //step 18 implemented in lines 45-51 below
+//step 29 below
+    /*    //step 18 implemented in lines 45-51 below
     public String getObjectID() {
         return objectID;
     }
@@ -56,5 +57,5 @@ public class Profile {
 
     public void setEmail(String email) {
         this.email = email;
-    }
+    } */
 }

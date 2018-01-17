@@ -3,7 +3,7 @@ package examples.pltw.org.collegeapp;
 /**
  * Created by ckinnard on 4/3/2017.
  */
-public abstract class FamilyMember {
+public abstract class FamilyMember extends ApplicantData {
     private String firstName;
     private String lastName;
 
