@@ -29,5 +29,6 @@ Benefits of a back end would allow more accessibility, and provides a variety of
 2) What is a Backend as a Service and how does it work? Include as much detail as you can about the infrastructure and implementation.  Include any interesting notes from class presentations.
 
 A backend as a service is a model for providing web app and mobile development to form applications while still having the same features of a user management. Backend as a service also provides cloud storage, push notifications, server codes, user and file management, social networking, and location services.
+
 =======
 
